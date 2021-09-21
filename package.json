@@ -1,0 +1,26 @@
+{
+  "name": "classroom-api",
+  "version": "1.0.0",
+  "description": "This is a starter template for [Learn Next.js](https://nextjs.org/learn).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkySoShy/testDemo.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "sky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SkySoShy/testDemo/issues"
+  },
+  "homepage": "https://github.com/SkySoShy/testDemo#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
