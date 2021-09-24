@@ -1,7 +1,10 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const bodyParser = require('body-parser')
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.all("*", function (req, res, next) {
     //设为指定的域
     res.header("Access-Control-Allow-Origin", "*");
@@ -17,7 +20,7 @@ app.all("*", function (req, res, next) {
 app.get("/user/validate", (req, res) => {
     console.log(req);
     const result = {
-        success: true,
+        success: false,
         data: [],
     };
     res.send(JSON.stringify(result));
@@ -25,7 +28,10 @@ app.get("/user/validate", (req, res) => {
 });
 
 //注册
-app.post("/user/register");
+app.post("/user/register", (req, res) => {
+    const body = req.body;
+    console.log(body)
+});
 // 登录
 app.post("/user/login");
 // 获取轮播图列表
