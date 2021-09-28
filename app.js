@@ -1,7 +1,28 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
+
+const MongoClient = require("mongodb").MongoClient;
+const url = `mongodb://localhost:27017`;
+
+// MongoClient.connect(url, (err, db) => {
+//     if (err) throw err;
+//     console.log("数据库已经创建");
+//     const dbase = db.db("register");
+// var myobj = [
+//     { name: "菜鸟工具", url: "https://c.runoob.com", type: "cn" },
+//     { name: "Google", url: "https://www.google.com", type: "en" },
+//     { name: "Facebook", url: "https://www.google.com", type: "en" },
+// ];
+//     // const myobj = { name: "cainiao", url: "www.runoob" };
+//     // dbase.collection("site").insertOne(myobj, (err, res) => {
+//     dbase.collection("site").insertMany(myobj, (err, res) => {
+//         if (err) throw err;
+//         console.log("文档插入成功");
+//         db.close();
+//     });
+// });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -30,7 +51,28 @@ app.get("/user/validate", (req, res) => {
 //注册
 app.post("/user/register", (req, res) => {
     const body = req.body;
-    console.log(body)
+    console.log(body);
+    const { username, rpassword, password, email } = body;
+    if (rpassword !== password) {
+        const result = {
+            success: false,
+            code: 401,
+            msg: "两次输入密码不一致",
+        };
+        res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
+        res.end(JSON.stringify(result));
+        return;
+    }
+    MongoClient.connect(url, (err, db) => {
+        if (err) throw err;
+        const dbase = db.db("ketang");
+        dbase
+            .collection("rigister")
+            .insertOne({ username, password, email }, (err, res) => {
+                if (err) throw err;
+                db.close();
+            });
+    });
 });
 // 登录
 app.post("/user/login");
