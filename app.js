@@ -39,7 +39,6 @@ app.all("*", function (req, res, next) {
 });
 // 验证用户是否登录
 app.get("/user/validate", (req, res) => {
-    console.log(req);
     const result = {
         success: false,
         data: [],
@@ -51,7 +50,6 @@ app.get("/user/validate", (req, res) => {
 //注册
 app.post("/user/register", (req, res) => {
     const body = req.body;
-    console.log(body);
     const { username, rpassword, password, email } = body;
     if (rpassword !== password) {
         const result = {
